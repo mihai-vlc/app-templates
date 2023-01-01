@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "pspester.pester-test",
+        "ms-vscode.powershell",
+        "ms-vscode.makefile-tools",
+        "codezombiech.gitignore",
+        "editorconfig.editorconfig"
+    ]
+}

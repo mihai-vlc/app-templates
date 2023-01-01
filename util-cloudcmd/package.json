@@ -1,0 +1,15 @@
+{
+  "name": "local-server",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "cloudcmd --no-terminal --no-console --no-online --one-file-panel --no-show-config --no-config-dialog --no-export --no-import --log --no-dropbox --no-contact --root C:\\tmp\\local-server\\data"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cloudcmd": "16.6.1"
+  }
+}
