@@ -1,20 +1,29 @@
+MAKEFLAGS +=--no-print-directory
+
+ifeq ($(OS),Windows_NT)
+	APP_NAME := app.exe
+else
+	APP_NAME := app
+endif
+
 build:
-	@go build -o bin/app main.go
-	@echo "bin/app has been generated"
+	@go build -ldflags '-s -w' -o bin/$(APP_NAME) main.go
+	@echo "bin/$(APP_NAME) has been generated"
 
 run:
 	@go run main.go
 
+# npm install -g nodemon
 run-watch:
-	@gow -c run main.go
+	nodemon --quiet --exec "clear && make run" --ext "go"
 
 test:
 	@go test ./...
 
 test-watch:
-	@gow -c test ./...
+	nodemon --quiet --exec "clear && make test" --ext "go"
 
 mod:
 	go mod tidy
 
-all: build
+all: mod build
