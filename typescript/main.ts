@@ -1,5 +1,5 @@
 async function main() {
-    console.log("Hello sailor!");
+    console.log("Hello friend!");
     console.log("10 + 20 =", add(10, 20));
 }
 

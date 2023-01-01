@@ -1,14 +1,16 @@
+MAKEFLAGS +=--no-print-directory
+
 run:
-	@pwsh ./main.ps1
+	@pwsh -NoProfile ./main.ps1
+
+run-watch:
+	nodemon --quiet --exec "clear && make run" --ext "ps1,psm1"
 
 test:
 	@pwsh -NoProfile -NonInteractive -Command 'Invoke-Pester'
 
 test-watch:
-	while true; do \
-		make test; \
-		inotifywait -qre close_write .; \
-	done
+	nodemon --quiet --exec "clear && make test" --ext "ps1,psm1"
 
 all: run
 
