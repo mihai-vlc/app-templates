@@ -1,13 +1,22 @@
-import fastify from "fastify";
+import fastify, {
+    FastifyInstance,
+    FastifyPluginOptions,
+    FastifyRegisterOptions,
+} from "fastify";
 import autoroutes from "fastify-autoroutes";
 import path from "path";
+import fs from "fs/promises";
+import { createServer as createViteServer } from "vite";
+import middie from "@fastify/middie";
 
 async function main() {
     require("dotenv").config();
 
     const server = fastify({ logger: true });
 
-    server.register(autoroutes, {
+    await initializeVite(server);
+
+    await server.register(autoroutes, {
         dir: path.resolve("./controllers"),
     });
 
@@ -19,6 +28,37 @@ async function main() {
         }
 
         console.log(`Server listening at ${address}`);
+    });
+}
+
+async function initializeVite(server: FastifyInstance) {
+    await server.register(middie);
+
+    const viteServer = await createViteServer({
+        server: { middlewareMode: true },
+        appType: "custom",
+        root: path.join(__dirname, "ui"),
+    });
+
+    server.use(viteServer.middlewares);
+
+    server.route({
+        method: "GET",
+        url: "/",
+        handler: async function (request, reply) {
+            let template = await fs.readFile(
+                path.join(__dirname, "ui", "index.html"),
+                "utf-8"
+            );
+
+            // 2. Apply Vite HTML transforms. This injects the Vite HMR client, and
+            //    also applies HTML transforms from Vite plugins, e.g. global preambles
+            //    from @vitejs/plugin-react
+            template = await viteServer.transformIndexHtml("/", template);
+
+            reply.type("text/html");
+            reply.send(template);
+        },
     });
 }
 
