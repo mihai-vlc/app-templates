@@ -10,7 +10,7 @@ esbuild.build({
 });
 
 esbuild.build({
-    entryPoints: ["controllers/**/*.ts"],
+    entryPoints: ["controllers/**/!(*.test).ts"],
     bundle: false,
     platform: "node",
     outdir: "dist/controllers",
