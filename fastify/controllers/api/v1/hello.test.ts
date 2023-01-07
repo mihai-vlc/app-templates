@@ -1,5 +1,5 @@
 import { expect, test, beforeAll } from "vitest";
-import page from "./index";
+import page from "./hello";
 import fastify, { FastifyInstance } from "fastify";
 
 let server: FastifyInstance;
@@ -28,5 +28,13 @@ test("shows a message on a get request", async function () {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(response.payload).toContain("Hello Mihai");
+    expect(response.headers["content-type"]).toBe(
+        "application/json; charset=utf-8"
+    );
+
+    var data = JSON.parse(response.payload);
+
+    expect(data).toHaveProperty("message");
+    expect(data).toHaveProperty("number");
+    expect(data.message).toContain("Mihai");
 });
