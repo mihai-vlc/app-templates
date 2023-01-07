@@ -21,7 +21,9 @@ async function main() {
     });
 }
 
-main().catch(console.error);
+if (module === require.main) {
+    main().catch(console.error);
+}
 
 export function add(a: number, b: number) {
     return a + b;
