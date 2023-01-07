@@ -6,7 +6,7 @@
     "scripts": {
         "start": "tsx main.ts",
         "start:watch": "tsx watch main.ts",
-        "build": "esbuild --bundle --outfile=dist/app.js --format=cjs --platform=node main.ts",
+        "build": "tsx build.ts",
         "test": "vitest run",
         "test:watch": "vitest watch"
     },
@@ -15,7 +15,9 @@
     "license": "ISC",
     "dependencies": {
         "dotenv": "^16.0.3",
-        "fastify": "4.11.0"
+        "esbuild-plugin-glob": "^2.2.0",
+        "fastify": "4.11.0",
+        "fastify-autoroutes": "^3.0.2"
     },
     "devDependencies": {
         "@types/node": "18.11.18",
