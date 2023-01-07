@@ -1,0 +1,26 @@
+{
+    "name": "typescript-project",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "scripts": {
+        "start": "tsx main.ts",
+        "start:watch": "tsx watch main.ts",
+        "build": "esbuild --bundle --outfile=dist/app.js --format=cjs --platform=node main.ts",
+        "test": "vitest run",
+        "test:watch": "vitest watch"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "fastify": "4.11.0"
+    },
+    "devDependencies": {
+        "@types/node": "18.11.18",
+        "esbuild": "0.16.12",
+        "tsx": "3.12.1",
+        "vitest": "0.26.2"
+    }
+}
