@@ -3,8 +3,8 @@ import autoroutes from "fastify-autoroutes";
 import path from "path";
 import fs from "fs/promises";
 import pino from "pino";
-import { createServer as createViteServer } from "vite";
-import middie from "@fastify/middie";
+import fastifyMiddie from "@fastify/middie";
+import fastifyStatic from "@fastify/static";
 
 async function main() {
     require("dotenv").config();
@@ -14,20 +14,24 @@ async function main() {
             level: "info",
             stream: pino.multistream([
                 { stream: pino.destination() },
-                { stream: pino.destination("app.log") },
+                { stream: pino.destination(path.join(__dirname, "app.log")) },
             ]),
         },
         disableRequestLogging: true,
     });
 
-    await initializeVite(server);
+    if (process.env.NODE_ENV == "production") {
+        await initializeStaticRoutes(server);
+    } else {
+        await initializeViteServer(server);
+    }
 
     await server.register(autoroutes, {
         dir: path.resolve("./controllers"),
     });
 
     const port = Number(process.env.PORT) || 8000;
-    server.listen({ port }, (err, address) => {
+    server.listen({ port, host: "0.0.0.0" }, (err, address) => {
         if (err) {
             console.error(err);
             process.exit(1);
@@ -37,10 +41,28 @@ async function main() {
     });
 }
 
-async function initializeVite(server: FastifyInstance) {
-    await server.register(middie);
+async function initializeStaticRoutes(server: FastifyInstance) {
+    server.register(fastifyStatic, {
+        root: path.join(__dirname, "ui"),
+        prefix: "/ui/",
+    });
 
-    const viteServer = await createViteServer({
+    server.get("*", async function (request, reply) {
+        let template = await fs.readFile(
+            path.join(__dirname, "ui", "index.html"),
+            "utf-8"
+        );
+
+        reply.type("text/html");
+        reply.send(template);
+    });
+}
+
+async function initializeViteServer(server: FastifyInstance) {
+    const vite = await import("vite");
+    await server.register(fastifyMiddie);
+
+    const viteServer = await vite.createServer({
         server: { middlewareMode: true },
         appType: "custom",
         root: path.join(__dirname, "ui"),

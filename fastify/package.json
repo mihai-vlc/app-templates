@@ -15,6 +15,7 @@
     "license": "ISC",
     "dependencies": {
         "@fastify/middie": "8.1.0",
+        "@fastify/static": "^6.6.0",
         "dotenv": "16.0.3",
         "esbuild-plugin-glob": "2.2.0",
         "fastify": "4.11.0",
