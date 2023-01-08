@@ -18,7 +18,8 @@
         "dotenv": "16.0.3",
         "esbuild-plugin-glob": "2.2.0",
         "fastify": "4.11.0",
-        "fastify-autoroutes": "3.0.2"
+        "fastify-autoroutes": "3.0.2",
+        "pino": "^8.8.0"
     },
     "devDependencies": {
         "@types/node": "18.11.18",

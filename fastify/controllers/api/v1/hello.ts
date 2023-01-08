@@ -13,6 +13,14 @@ export default (fastify: FastifyInstance) => {
         reply: FastifyReply
     ) {
         const name = request.query.name || "John Doe";
+
+        if (name == "John Doe") {
+            request.log.warn(
+                { url: request.raw.url, id: request.id },
+                "Page was accessed by john doe"
+            );
+        }
+
         return {
             message: `Hello ${name}`,
             number: Math.random(),

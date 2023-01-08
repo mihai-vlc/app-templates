@@ -1,18 +1,24 @@
-import fastify, {
-    FastifyInstance,
-    FastifyPluginOptions,
-    FastifyRegisterOptions,
-} from "fastify";
+import fastify, { FastifyInstance } from "fastify";
 import autoroutes from "fastify-autoroutes";
 import path from "path";
 import fs from "fs/promises";
+import pino from "pino";
 import { createServer as createViteServer } from "vite";
 import middie from "@fastify/middie";
 
 async function main() {
     require("dotenv").config();
 
-    const server = fastify({ logger: true });
+    const server = fastify({
+        logger: {
+            level: "info",
+            stream: pino.multistream([
+                { stream: pino.destination() },
+                { stream: pino.destination("app.log") },
+            ]),
+        },
+        disableRequestLogging: true,
+    });
 
     await initializeVite(server);
 
@@ -64,8 +70,4 @@ async function initializeVite(server: FastifyInstance) {
 
 if (module === require.main) {
     main().catch(console.error);
-}
-
-export function add(a: number, b: number) {
-    return a + b;
 }
