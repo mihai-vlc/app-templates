@@ -29,9 +29,11 @@ export default class DateTime implements Entity {
         const p = this.screen.renderer;
 
         this.state.time = new Date().toISOString();
-        this.state.elapsedTime = Math.floor(p.millis() / 1000);
 
-        if (this.state.elapsedTime % 5 == 0) {
+        const time = Math.floor(p.millis() / 1000);
+
+        if (time != this.state.elapsedTime) {
+            this.state.elapsedTime = time;
             this.screen.changeState(this.updateBackground);
         }
     }
