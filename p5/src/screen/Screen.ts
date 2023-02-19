@@ -18,7 +18,7 @@ export default class Screen<S = {}> {
     constructor(p5Instance: p5, state: Immutable<S>) {
         this.renderer = p5Instance;
         this.state = state;
-        this.reducer = produce((s, a) => {});
+        this.reducer = produce(() => {});
     }
 
     addEntity(element: Entity) {
