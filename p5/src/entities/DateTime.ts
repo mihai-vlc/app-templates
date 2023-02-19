@@ -16,13 +16,6 @@ export default class DateTime implements Entity {
             time: "",
             elapsedTime: 0,
         };
-
-        this.updateBackground = this.updateBackground.bind(this);
-    }
-
-    updateBackground(prevState: any) {
-        const p = this.screen.renderer;
-        prevState.backgroundColor = p.color(p.random(0, 100));
     }
 
     update(): void {
@@ -34,7 +27,7 @@ export default class DateTime implements Entity {
 
         if (time != this.state.elapsedTime) {
             this.state.elapsedTime = time;
-            this.screen.changeState(this.updateBackground);
+            this.screen.dispatch({ type: "DATETIME_TICK" });
         }
     }
 

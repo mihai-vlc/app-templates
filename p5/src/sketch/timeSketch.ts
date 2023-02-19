@@ -3,11 +3,26 @@ import Background from "../entities/Background";
 import DateTime from "../entities/DateTime";
 import Screen from "../screen/Screen";
 
+interface SketchState {
+    backgroundColor: p5.Color;
+}
+
 export default function timeSketch(p5Instance: p5) {
-    const screen = new Screen(p5Instance);
+    const screen = new Screen<SketchState>(p5Instance, {
+        backgroundColor: p5Instance.color(0),
+    });
 
     screen.addEntity(new Background(screen));
     screen.addEntity(new DateTime(screen));
+
+    screen.setReducer((state, action) => {
+        switch (action.type) {
+            case "DATETIME_TICK":
+                const randomColor = p5Instance.random(0, 100);
+                state.backgroundColor = p5Instance.color(randomColor);
+                break;
+        }
+    });
 
     p5Instance.preload = function () {};
 

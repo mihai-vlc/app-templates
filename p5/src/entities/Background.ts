@@ -1,16 +1,19 @@
 import Screen from "../screen/Screen";
 import Entity from "../screen/Entity";
-import { Color } from "p5";
+import p5, { Color } from "p5";
 
 interface State {
     color: Color;
 }
+interface ScreenState {
+    backgroundColor: p5.Color;
+}
 
 export default class Background implements Entity {
-    private screen: Screen;
+    private screen: Screen<ScreenState>;
     private state: State;
 
-    constructor(screen: Screen) {
+    constructor(screen: Screen<ScreenState>) {
         this.screen = screen;
         this.state = {
             color: screen.renderer.color(50),

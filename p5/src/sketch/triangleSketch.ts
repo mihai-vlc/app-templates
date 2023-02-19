@@ -4,7 +4,9 @@ import Triangle from "../entities/Triangle";
 import Screen from "../screen/Screen";
 
 export default function triangleSketch(p5Instance: p5) {
-    const screen = new Screen(p5Instance);
+    const screen = new Screen(p5Instance, {
+        backgroundColor: p5Instance.color(0),
+    });
 
     screen.addEntity(new Background(screen));
     screen.addEntity(new Triangle(screen));
