@@ -9,6 +9,8 @@ fs.rmSync(join(__dirname, "dist"), {
     force: true,
 });
 
+fs.mkdirSync(join(__dirname, "dist"));
+
 esbuild
     .build({
         entryPoints: ["main.ts"],
@@ -20,6 +22,7 @@ esbuild
         },
         format: "cjs",
         external: ["vite"],
+        logLevel: "info",
     })
     .catch((e) => {
         console.log(e);
@@ -38,6 +41,7 @@ esbuild
         },
         format: "cjs",
         plugins: [globPlugin()],
+        logLevel: "info",
     })
     .catch((e) => {
         console.log(e);
@@ -50,3 +54,22 @@ vite.build({
     console.log(e);
     process.exit(1);
 });
+
+var packageJson = {
+    name: "fastify-react-app",
+    version: "1.0.0",
+    description: "",
+    private: true,
+    scripts: {
+        start: "node app.js",
+    },
+    keywords: [],
+    author: "",
+    license: "ISC",
+};
+
+fs.writeFileSync(
+    join(__dirname, "dist", "package.json"),
+    JSON.stringify(packageJson, null, 2)
+);
+console.log("written the dist/package.json file");
