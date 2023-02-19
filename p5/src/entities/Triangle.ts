@@ -43,7 +43,7 @@ export default class Triangle implements Entity {
         // http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle.htm
         let { radius, targetRadius } = this.state;
 
-        radius = p.lerp(radius, targetRadius, 1 - p.pow(0.5, dt));
+        radius = p.lerp(radius, targetRadius, 1 - p.pow(0.1, dt));
 
         this.state.radius = radius;
 
