@@ -6,4 +6,10 @@ body {
 
 body {
     background: #000000;
+    color: #ffffff;
+}
+
+.sketch-selector {
+    text-align: center;
+    padding: 10px 0;
 }

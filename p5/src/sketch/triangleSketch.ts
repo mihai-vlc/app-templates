@@ -1,13 +1,13 @@
 import p5 from "p5";
 import Background from "../entities/Background";
-import DateTime from "../entities/DateTime";
+import Triangle from "../entities/Triangle";
 import Screen from "../screen/Screen";
 
-export default function timeSketch(p5Instance: p5) {
+export default function triangleSketch(p5Instance: p5) {
     const screen = new Screen(p5Instance);
 
     screen.addEntity(new Background(screen));
-    screen.addEntity(new DateTime(screen));
+    screen.addEntity(new Triangle(screen));
 
     p5Instance.preload = function () {};
 
