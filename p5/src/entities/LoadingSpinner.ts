@@ -8,6 +8,7 @@ interface State {
     radius: number;
     count: number;
     step: number;
+    alphaStep: number;
     itemRadius: number;
 }
 interface ScreenState {}
@@ -21,7 +22,7 @@ export default class LoadingSpinner implements Entity {
 
         const p = this.screen.renderer;
 
-        const count = 10;
+        const count = 15;
         this.state = {
             // clone the color as we are going to make the
             // alpha component dynamic
@@ -31,6 +32,7 @@ export default class LoadingSpinner implements Entity {
             count: count,
             step: 360 / count,
             itemRadius: 15,
+            alphaStep: 255 / count,
         };
     }
 
@@ -55,11 +57,11 @@ export default class LoadingSpinner implements Entity {
 
         p.rotate(this.state.angle);
 
-        const { radius, count, step, itemRadius } = this.state;
+        const { radius, count, step, itemRadius, alphaStep } = this.state;
 
         for (let i = 0; i < count; i++) {
             const angle = p.radians(step * i);
-            const alpha = 255 - i * 25;
+            const alpha = 255 - i * alphaStep;
 
             this.state.color.setAlpha(alpha);
             p.fill(this.state.color);
