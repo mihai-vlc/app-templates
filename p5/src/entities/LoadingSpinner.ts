@@ -4,6 +4,11 @@ import { Color } from "p5";
 
 interface State {
     color: Color;
+    angle: number;
+    radius: number;
+    count: number;
+    step: number;
+    itemRadius: number;
 }
 interface ScreenState {}
 
@@ -15,14 +20,28 @@ export default class LoadingSpinner implements Entity {
         this.screen = screen;
 
         const p = this.screen.renderer;
+
+        const count = 10;
         this.state = {
             // clone the color as we are going to make the
             // alpha component dynamic
             color: p.color(dotColor.toString()),
+            angle: 0,
+            radius: 50,
+            count: count,
+            step: 360 / count,
+            itemRadius: 15,
         };
     }
 
-    update(): void {}
+    update(): void {
+        const p = this.screen.renderer;
+
+        const elapsedTime = Math.floor(p.millis() / 90);
+        const { step, count } = this.state;
+        const activeItem = elapsedTime % count;
+        this.state.angle = p.radians(step * activeItem);
+    }
 
     draw(): void {
         const p = this.screen.renderer;
@@ -34,15 +53,9 @@ export default class LoadingSpinner implements Entity {
         p.circle(0, 0, 10);
         p.noStroke();
 
-        const radius = 50;
-        const count = 10;
-        const step = 360 / count;
-        const itemRadius = 15;
+        p.rotate(this.state.angle);
 
-        const elapsedTime = Math.floor(p.millis() / 90);
-        const activeItem = elapsedTime % count;
-
-        p.rotate(p.radians(step * activeItem));
+        const { radius, count, step, itemRadius } = this.state;
 
         for (let i = 0; i < count; i++) {
             const angle = p.radians(step * i);
