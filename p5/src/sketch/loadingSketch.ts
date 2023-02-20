@@ -7,9 +7,10 @@ export default function loadingSketch(p5Instance: p5) {
     const screen = new Screen(p5Instance, {
         backgroundColor: p5Instance.color(100, 100, 100),
     });
+    const dotColor = p5Instance.color(255, 255, 0);
 
     screen.addEntity(new Background(screen));
-    screen.addEntity(new LoadingSpinner(screen));
+    screen.addEntity(new LoadingSpinner(screen, dotColor));
 
     p5Instance.preload = function () {};
 

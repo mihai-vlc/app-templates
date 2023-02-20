@@ -1,6 +1,6 @@
 import Screen from "../screen/Screen";
 import Entity from "../screen/Entity";
-import p5, { Color } from "p5";
+import { Color } from "p5";
 
 interface State {
     color: Color;
@@ -11,10 +11,14 @@ export default class LoadingSpinner implements Entity {
     private screen: Screen<ScreenState>;
     private state: State;
 
-    constructor(screen: Screen<ScreenState>) {
+    constructor(screen: Screen<ScreenState>, dotColor: Color) {
         this.screen = screen;
+
+        const p = this.screen.renderer;
         this.state = {
-            color: screen.renderer.color(50),
+            // clone the color as we are going to make the
+            // alpha component dynamic
+            color: p.color(dotColor.toString()),
         };
     }
 
@@ -44,7 +48,8 @@ export default class LoadingSpinner implements Entity {
             const angle = p.radians(step * i);
             const alpha = 255 - i * 25;
 
-            p.fill(255, 255, 0, alpha);
+            this.state.color.setAlpha(alpha);
+            p.fill(this.state.color);
             p.circle(radius * p.sin(angle), radius * p.cos(angle), itemRadius);
         }
 
