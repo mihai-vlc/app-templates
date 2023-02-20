@@ -2,6 +2,7 @@ import "./style.css";
 import p5 from "p5";
 import timeSketch from "./sketch/timeSketch";
 import triangleSketch from "./sketch/triangleSketch";
+import loadingSketch from "./sketch/loadingSketch";
 
 let activeCanvas: p5;
 
@@ -12,6 +13,7 @@ interface SketchOptions {
 const sketchMap: SketchOptions = {
     time: timeSketch,
     triangle: triangleSketch,
+    loading: loadingSketch,
 };
 
 initializeActiveSketchSelect();
