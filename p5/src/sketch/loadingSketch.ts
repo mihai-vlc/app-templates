@@ -1,5 +1,6 @@
 import p5 from "p5";
 import Background from "../entities/Background";
+import FPSCounter from "../entities/FPSCounter";
 import LoadingSpinner from "../entities/LoadingSpinner";
 import Screen from "../screen/Screen";
 
@@ -11,6 +12,7 @@ export default function loadingSketch(p5Instance: p5) {
 
     screen.addEntity(new Background(screen));
     screen.addEntity(new LoadingSpinner(screen, dotColor));
+    screen.addEntity(new FPSCounter(screen));
 
     p5Instance.preload = function () {};
 
