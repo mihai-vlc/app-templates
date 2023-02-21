@@ -3,6 +3,7 @@ import p5 from "p5";
 import timeSketch from "./sketch/timeSketch";
 import triangleSketch from "./sketch/triangleSketch";
 import loadingSketch from "./sketch/loadingSketch";
+import shapesSketch from "./sketch/shapesSketch";
 
 let activeCanvas: p5;
 
@@ -14,6 +15,7 @@ const sketchMap: SketchOptions = {
     time: timeSketch,
     triangle: triangleSketch,
     loading: loadingSketch,
+    shapes: shapesSketch,
 };
 
 initializeActiveSketchSelect();
