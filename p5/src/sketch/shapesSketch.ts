@@ -46,7 +46,7 @@ export default function shapesSketch(p5Instance: p5) {
         });
 
         withTranslate(p, 10, 150, () => {
-            p.text("Quad", 10, 20);
+            p.text("Quad", 0, 20);
             p.stroke(0, 255, 0);
             p.fill(0, 130, 0);
 
@@ -67,7 +67,7 @@ export default function shapesSketch(p5Instance: p5) {
         });
 
         withTranslate(p, 10, 250, () => {
-            p.text("Arc", 10, 10);
+            p.text("Arc", 0, 50);
 
             p.stroke(0, 0, 0);
             p.fill(0, 0, 170);
