@@ -13,15 +13,24 @@ poethepoet = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
+pytest-watch = "^4.2.0"
+pytest-testmon = "^2.0.8"
 
 [tool.pytest.ini_options]
-markers = [
-    "fast",
-    "furious",
-]
+addopts = '--strict-markers'
+markers = [ "fast", "furious" ]
 
-[tool.poe.tasks]
-test = "pytest"
+[tool.poe.tasks.test]
+help = "Run all the tests"
+cmd = "pytest"
+
+[tool.poe.tasks.test_watch]
+help = "Run all tests in the watch mode"
+cmd = "ptw -- --testmon"
+
+[tool.poe.tasks.test_fast]
+help = "Run all the fast tests"
+cmd = "pytest -m fast"
 
 [build-system]
 requires = ["poetry-core"]
