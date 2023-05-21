@@ -23,6 +23,10 @@ addopts = '--strict-markers'
 markers = ["fast", "furious"]
 
 # Tasks/Scripts
+    [tool.poe.tasks.start]
+    help = "Start the application"
+    cmd = "python src/my_app/main.py"
+
     [tool.poe.tasks.dev]
     help = "Start the application in watch mode"
     cmd = "python pymon.py --all src/my_app/main.py"
@@ -36,7 +40,7 @@ markers = ["fast", "furious"]
     cmd = "ptw -- --testmon"
 
     [tool.poe.tasks.test_fast]
-    help = "Run all the fast tests"
+    help = "Run all the tests decorated with @pytest.mark.fast"
     cmd = "pytest -m fast"
 
 [build-system]
