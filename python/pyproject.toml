@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Mihai Ionut Vilcu <ionutvmi@gmail.com>"]
 readme = "README.md"
-packages = [{include = "my_app", from = "src"}]
+packages = [{ include = "my_app", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -15,22 +15,29 @@ poethepoet = "^0.20.0"
 pytest = "^7.3.1"
 pytest-watch = "^4.2.0"
 pytest-testmon = "^2.0.8"
+colorama = "^0.4.6"
+watchdog = "^3.0.0"
 
 [tool.pytest.ini_options]
 addopts = '--strict-markers'
-markers = [ "fast", "furious" ]
+markers = ["fast", "furious"]
 
-[tool.poe.tasks.test]
-help = "Run all the tests"
-cmd = "pytest"
+# Tasks/Scripts
+    [tool.poe.tasks.dev]
+    help = "Start the application in watch mode"
+    cmd = "python pymon.py --all src/my_app/main.py"
 
-[tool.poe.tasks.test_watch]
-help = "Run all tests in the watch mode"
-cmd = "ptw -- --testmon"
+    [tool.poe.tasks.test]
+    help = "Run all the tests"
+    cmd = "pytest"
 
-[tool.poe.tasks.test_fast]
-help = "Run all the fast tests"
-cmd = "pytest -m fast"
+    [tool.poe.tasks.test_watch]
+    help = "Run all tests in the watch mode"
+    cmd = "ptw -- --testmon"
+
+    [tool.poe.tasks.test_fast]
+    help = "Run all the fast tests"
+    cmd = "pytest -m fast"
 
 [build-system]
 requires = ["poetry-core"]
