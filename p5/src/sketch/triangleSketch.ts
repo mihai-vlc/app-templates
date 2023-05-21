@@ -1,5 +1,6 @@
 import p5 from "p5";
 import Background from "../entities/Background";
+import FPSCounter from "../entities/FPSCounter";
 import Triangle from "../entities/Triangle";
 import Screen from "../screen/Screen";
 
@@ -9,6 +10,7 @@ export default function triangleSketch(p5Instance: p5) {
     });
 
     screen.addEntity(new Background(screen));
+    screen.addEntity(new FPSCounter(screen));
     screen.addEntity(new Triangle(screen));
 
     p5Instance.preload = function () {};

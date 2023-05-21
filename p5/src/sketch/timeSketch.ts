@@ -1,6 +1,7 @@
 import p5 from "p5";
 import Background from "../entities/Background";
 import DateTime from "../entities/DateTime";
+import FPSCounter from "../entities/FPSCounter";
 import Screen from "../screen/Screen";
 
 interface SketchState {
