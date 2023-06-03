@@ -36,8 +36,9 @@
             <div>
                 <h1>COUNTER</h1>
                 <div>count is {{ count }}</div>
-                <button @click="increment">increment</button>
-                <button @click="decrement">decrement</button>
+                <n-button @click="increment">increment</n-button>
+                -
+                <n-button @click="decrement">decrement</n-button>
             </div>
         `,
     });
