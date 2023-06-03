@@ -48,12 +48,12 @@
 
     const app = createApp({
         template: /*html*/ `
-<nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/counters">Counters</router-link>
-</nav>
-<router-view></router-view>
-`,
+            <nav>
+                <router-link to="/">Home</router-link> |
+                <router-link to="/counters">Counters</router-link>
+            </nav>
+            <router-view></router-view>
+        `,
     });
 
     app.use(router);
