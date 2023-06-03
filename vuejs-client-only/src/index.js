@@ -15,7 +15,10 @@
         template: /*html*/ `
             <h1>Welcome to my application</h1>
             <div>{{msg}}</div>
-            <input type="text" name="msg" v-model="msg" />
+            <n-space justify="center">
+                <n-input v-model:value="msg"></n-input>
+                <n-button>Click me</n-button>
+            </n-space>
         `,
     };
 
@@ -47,16 +50,24 @@
     });
 
     const app = createApp({
+        setup() {
+            return {
+                darkTheme: naive.darkTheme,
+            };
+        },
         template: /*html*/ `
-            <nav>
-                <router-link to="/">Home</router-link> |
-                <router-link to="/counters">Counters</router-link>
-            </nav>
-            <router-view></router-view>
+            <n-config-provider :theme="darkTheme">
+                <nav>
+                    <router-link to="/">Home</router-link> |
+                    <router-link to="/counters">Counters</router-link>
+                </nav>
+                <router-view></router-view>
+            </n-config-provider>
         `,
     });
 
     app.use(router);
+    app.use(naive);
 
     window.appComponents.forEach(function (component) {
         app.component(component.tagName, component);
