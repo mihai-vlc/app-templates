@@ -1,8 +1,22 @@
 (function () {
     window.appComponents.push({
         tagName: "app-counter",
-        setup() {
-            const count = Vue.ref(0);
+        props: {
+            initialValue: {
+                type: Number,
+                default: 0,
+            },
+        },
+        setup(props) {
+            const count = Vue.ref(props.initialValue);
+
+            Vue.onMounted(() => {
+                console.log("Counter component mounted");
+            });
+
+            Vue.onUnmounted(() => {
+                console.log("Counter component UNmounted");
+            });
 
             return {
                 count: count,

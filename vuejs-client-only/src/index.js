@@ -11,9 +11,9 @@ const Homepage = {
 const CountersPage = {
     template: /*html*/ `<div>
     <app-counter></app-counter>
+    <app-counter :initial-value="4"></app-counter>
     <app-counter></app-counter>
-    <app-counter></app-counter>
-    <app-counter></app-counter>
+    <app-counter :initial-value="16"></app-counter>
     <app-counter></app-counter>
 </div>`,
 };
