@@ -1,5 +1,9 @@
-(function () {
-    window.appComponents.push({
+(function (/** @type {import('vue').Component[]} */ appComponents) {
+    /** @type {import('vue')} */
+    var Vue = window.Vue;
+    const { ref, onMounted, onUnmounted } = Vue;
+
+    appComponents.push({
         tagName: "app-counter",
         props: {
             initialValue: {
@@ -8,13 +12,13 @@
             },
         },
         setup(props) {
-            const count = Vue.ref(props.initialValue);
+            const count = ref(props.initialValue);
 
-            Vue.onMounted(() => {
+            onMounted(() => {
                 console.log("Counter component mounted");
             });
 
-            Vue.onUnmounted(() => {
+            onUnmounted(() => {
                 console.log("Counter component UNmounted");
             });
 
@@ -28,11 +32,13 @@
                 },
             };
         },
-        template: /*html*/ `<div>
-        <h1>COUNTER</h1>
-        <div>count is {{ count }}</div>
-        <button @click="increment">increment</button>
-        <button @click="decrement">decrement</button>
-        </div>`,
+        template: /*html*/ `
+            <div>
+                <h1>COUNTER</h1>
+                <div>count is {{ count }}</div>
+                <button @click="increment">increment</button>
+                <button @click="decrement">decrement</button>
+            </div>
+        `,
     });
 })((window.appComponents = window.appComponents || []));

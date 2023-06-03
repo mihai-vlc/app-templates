@@ -1,51 +1,66 @@
-const Homepage = {
-    setup() {
-        return { msg: Vue.ref("Say hello") };
-    },
-    template: /*html*/ `
-    <h1>Welcome to my application</h1>
-    <div>{{msg}}</div>
-    <input type="text" name="msg" v-model="msg" />`,
-};
+(function () {
+    /** @type {import('vue')} */
+    var Vue = window.Vue;
+    /** @type {import('vue-router')} */
+    var VueRouter = window.VueRouter;
 
-const CountersPage = {
-    template: /*html*/ `<div>
-    <app-counter></app-counter>
-    <app-counter :initial-value="4"></app-counter>
-    <app-counter></app-counter>
-    <app-counter :initial-value="16"></app-counter>
-    <app-counter></app-counter>
-</div>`,
-};
+    const { ref, createApp } = Vue;
+    const { createRouter, createWebHashHistory } = VueRouter;
 
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHashHistory(),
-    routes: [
-        {
-            path: "/",
-            component: Homepage,
+    /** @type {import('vue').Component} */
+    const Homepage = {
+        setup() {
+            return { msg: ref("Say hello") };
         },
-        {
-            path: "/counters",
-            component: CountersPage,
-        },
-    ],
-});
+        template: /*html*/ `
+            <h1>Welcome to my application</h1>
+            <div>{{msg}}</div>
+            <input type="text" name="msg" v-model="msg" />
+        `,
+    };
 
-const app = Vue.createApp({
-    template: /*html*/ `
+    /** @type {import('vue').Component} */
+    const CountersPage = {
+        template: /*html*/ `
+            <div>
+                <app-counter></app-counter>
+                <app-counter :initial-value="4"></app-counter>
+                <app-counter></app-counter>
+                <app-counter :initial-value="16"></app-counter>
+                <app-counter></app-counter>
+            </div>
+        `,
+    };
+
+    const router = createRouter({
+        history: createWebHashHistory(),
+        routes: [
+            {
+                path: "/",
+                component: Homepage,
+            },
+            {
+                path: "/counters",
+                component: CountersPage,
+            },
+        ],
+    });
+
+    const app = createApp({
+        template: /*html*/ `
 <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/counters">Counters</router-link>
 </nav>
 <router-view></router-view>
 `,
-});
+    });
 
-app.use(router);
+    app.use(router);
 
-window.appComponents.forEach(function (component) {
-    app.component(component.tagName, component);
-});
+    window.appComponents.forEach(function (component) {
+        app.component(component.tagName, component);
+    });
 
-app.mount("#app");
+    app.mount("#app");
+})();
