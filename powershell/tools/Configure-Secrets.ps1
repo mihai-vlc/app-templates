@@ -1,6 +1,6 @@
 #requires -Module Microsoft.PowerShell.SecretManagement
 #requires -Module Microsoft.PowerShell.SecretStore
-#requires -Module SecretManagement.KeePass
+#requires -Module @{ModuleName='SecretManagement.KeePass'; ModuleVersion="0.9.2"}
 
 throw "Use F8 to run a single command not F5"
 
