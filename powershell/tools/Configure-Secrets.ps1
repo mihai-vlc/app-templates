@@ -1,4 +1,11 @@
+#requires -Module Microsoft.PowerShell.SecretManagement
+#requires -Module Microsoft.PowerShell.SecretStore
+#requires -Module SecretManagement.KeePass
+
 throw "Use F8 to run a single command not F5"
+
+# Install-Module Microsoft.PowerShell.SecretManagement, Microsoft.PowerShell.SecretStore
+# Install-Module -Name SecretManagement.KeePass -RequiredVersion 0.9.2
 
 if (-not (Test-SecretVault -Name 'AppSecrets')) {
     Register-SecretVault `
